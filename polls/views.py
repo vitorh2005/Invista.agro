@@ -1,3 +1,9 @@
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
+
+from polls.models import Question
+
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from polls.models import Question
@@ -21,3 +27,10 @@ def ultimas_perguntas(request):
     return render(request, 'polls/perguntas.html', context)
 
 return render(request, 'perguntas_recentes.html', context)
+
+class QuestionCreateView(CreateView):
+    model = Question
+    template_name = 'polls/question_form.html'
+    fields = ('question_text', 'pub_date', )
+    success_url = reverse_lazy('polls_list')
+    
