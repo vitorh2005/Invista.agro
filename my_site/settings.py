@@ -41,9 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'polls',
     'accounts',
-
 ]
 
 MIDDLEWARE = [
@@ -147,3 +145,5 @@ messages.ERROR: 'alert-danger',
 
 LOGIN_REDIRECT_URL = '/admin'
 LOGOUT_REDIRECT_URL = '/admin'
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
