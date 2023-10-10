@@ -53,7 +53,7 @@ class QuestionUpdateView(UpdateView):
         context['form_title'] = 'Editando a pergunta'
         return context
 
-class QuestionDeleteView((LoginRequiredMixin, DeleteView):
+class QuestionDeleteView(LoginRequiredMixin, DeleteView):
     model = Question
     template_name = 'polls/question_confirm_delete_form.html'
     success_url = reverse_lazy('polls_list')    
