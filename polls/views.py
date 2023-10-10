@@ -10,12 +10,16 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from polls.models import Question
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 # Create your views here.
 
 #View Index
 def index(request):
     return HttpResponse("Olá, seja bem vindo a enquete")
 
+@login_required
 def sobre(request):
     return HttpResponse('Este é um app de enquete!')
 
@@ -49,7 +53,7 @@ class QuestionUpdateView(UpdateView):
         context['form_title'] = 'Editando a pergunta'
         return context
 
-class QuestionDeleteView(DeleteView):
+class QuestionDeleteView((LoginRequiredMixin, DeleteView):
     model = Question
     template_name = 'polls/question_confirm_delete_form.html'
     success_url = reverse_lazy('polls_list')    

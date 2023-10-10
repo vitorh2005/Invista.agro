@@ -20,4 +20,6 @@ from django.urls import include, path
 urlpatterns = [
     path ('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
+    path('', include('accounts.urls')), # rotas personalizadas como accounts/signup
+    path('accounts/', include('django.contrib.auth.urls')), # rotas padrão fornecida pelo Django
 ]
