@@ -1,6 +1,7 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, TemplateView
+from django.contrib import messages
 
 from polls.models import Question
 
@@ -52,6 +53,10 @@ class QuestionDeleteView(DeleteView):
     model = Question
     template_name = 'polls/question_confirm_delete_form.html'
     success_url = reverse_lazy('polls_list')    
+    success_message = 'Pergunta excluída com sucesso.'
+    def form_valid(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(QuestionDeleteView, self).form_valid(request, *args, **kwargs)
 
 class QuestionDetailView(DetailView):
     model = Question
