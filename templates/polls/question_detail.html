@@ -1,20 +1,43 @@
-{% extends '_layout1.html' %} {# herda tudo que já tem em _layout1.html #}
+{% extends '_layout1.html' %}
 {% block content %} {# substitui o bloco content em _layout1.html #}
 <div class="card">
     <div class="card-header">
         <h5 class="card-title">Pergunta</h5>
     </div>
     <div class="card-body">
+        {% if question.author %}
+        <span>Autor: {{ question.author.username }}</span>
+        {% else %}
+        <span>Autor: Desconhecido</span>
+        {% endif %} <br>
         <p>
             {{ question.question_text }}
-            <a href="{% url 'poll_edit' pk=question.id %}" class="link-secondary">
+            <a href="{% url 'polls_edit' pk=question.id %}" class="link-secondary">
                 Editar
             </a> &nbsp;
-            <a href="{% url 'poll_delete' pk=question.id %}" class="link-secondary">
+            <a href="{% url 'polls_delete' pk=question.id %}" class="link-secondary">
                 Excluir
             </a>
         </p>
         <p>Data de publicação: {{ question.pub_date }}</p>
+        {% if total_votes %}
+            <p>Total de votos: {{ total_votes }}</p>
+        {% endif %}
+        <form action="{% url 'poll_vote' question_id=question.id %}" method="post">
+            {% csrf_token %}
+            <fieldset>
+                <legend><h1>{{ question.question_text }}</h1></legend>
+                {% for choice in question.choice_set.all %}
+                    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+                {% empty %}
+                    <h5>Não há alternativas cadastradas</h5>
+                {% endfor %} 
+            </fieldset>
+            {% if question.choice_set.all %}
+                <input type="submit" value="Votar">
+            {% endif %}
+        </form>
     </div>
 </div>
 {% endblock %} {# fecha o bloco content #}

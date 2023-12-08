@@ -1,7 +1,6 @@
 {% extends '_layout1.html' %}
 <!-- herda tudo que já tem em _layout1.html -->
-{% block content %}
-<!-- substitui o bloco content em _layout1.html -->
+{% block content %} <!-- substitui o bloco content em _layout1.html -->
 <div class="card">
     <div class="card-header">
         <h5 class="card-title">{{ form_title }}</h5>
@@ -12,7 +11,30 @@
             {{ form.as_p }}
             <button type="submit" class="btn btn-success">Salvar</button>
         </form>
+
+        {% if object %}
+        <div class="mt-5">
+            <h3>Alternativas da Pergunta</h3>
+            <a href="{% url 'choice_add' pk=object.id %}" class="btn btn-primary mb-5">
+                + Incluir Alternativa
+            </a>
+            <ul>
+            {% for choice in question_choices %}
+                <li>
+                    {{ choice.choice_text }} &nbsp;
+                    <a href="{% url 'choice_edit' pk=choice.id %}" class="link-secondary">
+                        Editar
+                    </a> &nbsp;
+                    <a href="{% url 'choice_delete' pk=choice.id %}" class="link-secondary">
+                        Excluir
+                    </a>
+                </li>
+            {% empty %}
+                <li>Não existem alternativas para esta pergunta</li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
     </div>
 </div>
-{% endblock %}
-<!-- fecha o bloco content -->
+{% endblock %} <!-- fecha o bloco content -->

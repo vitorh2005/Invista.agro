@@ -1,0 +1,36 @@
+{% extends '_layout1.html' %}
+<!-- herda tudo que já tem em _layout1.html -->
+{% block head_title %}
+    Mega Enquetes
+{% endblock %}
+
+{% block content %} <!-- substitui o bloco content em _layout1.html -->
+    <h1>Nossas últimas Enquetes</h1>
+    <a class="p-2 text-dark" href="{% url 'polls_all' %}">Exibir todas as Perguntas</a>
+{% for question in latest_question_list %}
+
+
+<article>
+
+    <h2>Em: {{ question.pub_date|date:"d / m / Y" }}</h2>
+
+    <p>{{ question.question_text }} 
+    
+        <a href="{% url 'polls_edit' pk=question.id %}" class="link-secondary">
+        Editar
+        </a>
+        <a href="{% url 'polls_delete' pk=question.id %}" class="link-secondary">
+            - Deletar
+        </a>
+        <a href="{% url 'polls_show' pk=question.id %}" class="link-secondary">
+            - Ver
+        </a>
+    </p>
+</article>
+
+{% endfor %}
+{% endblock %} <!-- fecha o bloco content -->
+
+<a href="{% url 'polls_add' %}" class="btn btn-lg btn-primary font-weight-bold">
+    + Pergunta
+</a>

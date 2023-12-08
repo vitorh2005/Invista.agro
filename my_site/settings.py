@@ -1,6 +1,5 @@
-import os
+import os # Acrescentar no topo do arquivo, na primeira linha.
 from django.contrib.messages import constants as messages
-
 """
 Django settings for my_site project.
 
@@ -23,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-he%qwu(w%rb8rtwew#1jz!pvgma*x4&%tdfi#fyuj(uwe5k8vg'
+SECRET_KEY = 'django-insecure-+05+jrt!$s7j!9bi5&ubh#p%5@0q=g)hszv-=naik#7^ume49#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,14 +33,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'polls.apps.PollsConfig',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "polls.apps.PollsConfig",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
     'accounts',
+    
 ]
 
 MIDDLEWARE = [
@@ -59,7 +59,7 @@ ROOT_URLCONF = 'my_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,17 +78,23 @@ WSGI_APPLICATION = 'my_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_polls_db',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306'
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
+DATABASES = {
+      'default': {
+                'ENGINE': 'django.db.backends.mysql',
+                'NAME': 'django_polls_db',
+                'USER': 'root',
+                'PASSWORD': '',
+                'HOST': 'localhost',
+                'PORT': '3306',
+      }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -124,7 +130,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'polls/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -135,16 +141,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
+# define os nomes das classes CSS a utilizar
 MESSAGE_TAGS = {
-messages.DEBUG: 'alert-secondary',
-messages.INFO: 'alert-info',
-messages.SUCCESS: 'alert-success',
-messages.WARNING: 'alert-warning',
-messages.ERROR: 'alert-danger',
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
 }
 
-LOGIN_REDIRECT_URL = '/admin'
-LOGOUT_REDIRECT_URL = '/admin'
+
+STATIC_URL = 'polls/static/'
+
+LOGIN_REDIRECT_URL = '/polls'
+LOGOUT_REDIRECT_URL = '/accounts/login'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 

@@ -1,78 +1,57 @@
-{% extends '_layout1.html' %} {# herda tudo que já tem em _layout1.html #}
-{% block content %} {# substitui o bloco content em _layout1.html #}
-<div class="card">
+{% extends '_layout1.html' %}
+{% block content %}
+  {# substitui o bloco content em _layout1.html #}
+  <div class="card">
     <div class="card-header">
-        <h5 class="card-title">Listagem de Perguntas</h5>
+      <h5 class="card-title">Listagem de Perguntas</h5>
     </div>
     <div class="card-body">
-        <a href="{% url 'poll_add' %}" class="btn btn-primary mb-3">
-            Cadastrar nova pergunta
-        </a>
-        <ul>
-            {% for question in questions %}
-            <li>
-                <a href="{% url 'poll_show' pk=question.id %}">
-                    {{ question.question_text }}
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-        <p class="count font-weight-bold">
-            Total de {{ page_obj.paginator.count }} pergunta(s).
-        </p>
-        {# exibe paginador somente se tiver mais de uma página #}
-        {% if page_obj.paginator.num_pages > 1 %}
+      <a href="{% url 'polls_add' %}" class="btn btn-primary mb-3">Cadastrar nova pergunta</a>
+      <ul>
+        {% for question in questions %}
+          <li>
+            <a href="{% url 'polls_show' pk=question.id  %}" > {{ question.question_text }} </a>
+          </li>
+        {% endfor %}
+      </ul>
+      <p class="count font-weight-bold">Total de {{ page_obj.paginator.count }} pergunta(s).</p>
+      {% if page_obj.paginator.num_pages > 1 %}
         <nav aria-label="...">
-            <span class="current">
-                Exibindo página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
-            </span>
-            <ul class="pagination">
-                {% if page_obj.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?page=1">
-                        &laquo; Primeira
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
-                        Anterior
-                    </a>
-                </li>
-                {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">
-                        &laquo; Primeira
-                    </a>
-                </li>
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">
-                        Anterior
-                    </a>
-                </li>
-                {% endif %}
-                {% if page_obj.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">
-                        Próxima
-                        2/3
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
-                        Última &raquo;
-                    </a>
-                </li>
-                {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">Próxima</a>
-                </li>
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">Última &raquo;</a>
-                </li>
-                {% endif %}
-            </ul>
+          <span class="current">Exibindo página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.</span>
+          <ul class="pagination">
+            {% if page_obj.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page=1">&laquo; Primeira</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <a class="page-link" href="#">&laquo; Primeira</a>
+              </li>
+              <li class="page-item disabled">
+                <a class="page-link" href="#">Anterior</a>
+              </li>
+            {% endif %}
+            {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Próxima 2/3</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <a class="page-link" href="#">Próxima</a>
+              </li>
+              <li class="page-item disabled">
+                <a class="page-link" href="#">Última &raquo;</a>
+              </li>
+            {% endif %}
+          </ul>
         </nav>
-        {% endif %} {# fim do paginador #}
+      {% endif %} {# fim do paginador #}
     </div>
-</div>
+  </div>
 {% endblock %} {# fecha o bloco content #}
